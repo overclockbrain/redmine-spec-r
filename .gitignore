@@ -1,0 +1,22 @@
+# --- 機密情報（絶対コミットしたらアカン！） ---
+.env
+*.key
+*.pem
+
+# --- Docker関連のデータ（重いし、環境ごとのゴミ） ---
+postgres-data/
+redmine-data/
+redmine_files/
+
+# --- OS・エディタのゴミ（Mac/Win/VSCode） ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- Ruby/Railsの一時ファイル（ローカルに残った場合用） ---
+/log/
+/tmp/
+.bundle/
+vendor/bundle/
+coverage/
