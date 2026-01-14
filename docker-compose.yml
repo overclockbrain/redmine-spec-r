@@ -1,27 +1,31 @@
 services:
   redmine:
-    image: redmine:latest
+    # image: redmine:5.1  ← これを消して、下のように書き換える
+    build: .             # Dockerfileからビルドする設定
+    container_name: redmine-spec-r
     ports:
       - "3000:3000"
-    volumes:
-      - ./plugins:/usr/src/redmine/plugins
-      - redmine-data:/usr/src/redmine/files
     environment:
       REDMINE_DB_POSTGRES: postgres
       REDMINE_DB_USERNAME: redmine
       REDMINE_DB_PASSWORD: password
+      REDMINE_PLUGINS_MIGRATE: "true" # 起動時にプラグインのDB更新を自動実行
+    volumes:
+      - ./plugins:/usr/src/redmine/plugins
+      - ./redmine_files:/usr/src/redmine/files
+      # ↓ Gemをローカルにキャッシュして、再起動しても消えないようにする設定
+      - ./.bundle_cache:/usr/local/bundle 
     depends_on:
       - postgres
 
   postgres:
     image: postgres:15
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
+    container_name: redmine-postgres
     environment:
       POSTGRES_DB: redmine
       POSTGRES_USER: redmine
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-
-volumes:
-  redmine-data:
-  postgres-data:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
