@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     git \
     vim \
+    libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # 開発環境用の設定
