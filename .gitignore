@@ -3,9 +3,9 @@
 *.key
 *.pem
 
-# --- Docker関連のデータ（重いし、環境ごとのゴミ） ---
+# --- Docker関連のデータ ---
 postgres-data/
-redmine-data/
+.bundle_cache/
 redmine_files/
 
 # --- OS・エディタのゴミ（Mac/Win/VSCode） ---
